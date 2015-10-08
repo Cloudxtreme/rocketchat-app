@@ -4,16 +4,16 @@
   "author": "RocketChat Developers",
   "description": "file://DESCRIPTION.md",
   "tagline": "The Complete Open Source Chat Solution",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "healthCheckPath": "/",
   "httpPort": 3000,
   "addons": {
-    "mongodb": { }
+    "mongodb": {},
+    "ldap": {}
   },
-  "minBoxVersion": "0.0.1",
   "manifestVersion": 1,
   "website": "http://rocket.chat",
   "contactEmail": "apps@cloudron.io",
   "icon": "",
-  "mediaLinks": [ ]
+  "mediaLinks": []
 }
