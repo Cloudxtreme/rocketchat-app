@@ -12,6 +12,7 @@
     "mongodb": {},
     "ldap": {}
   },
+  "targetBoxVersion": "0.0.66",
   "manifestVersion": 1,
   "website": "http://rocket.chat",
   "contactEmail": "apps@cloudron.io",
