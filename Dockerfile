@@ -14,6 +14,8 @@ RUN curl -fSL "https://s3.amazonaws.com/rocketchatbuild/rocket.chat-v.latest.tgz
 &&  cd /app/code/bundle/programs/server \
 &&  npm install
 
+RUN ln -s /app/data/www /var/www/rocket.chat/
+
 ADD start.sh /app/code/start.sh
 
 CMD [ "/app/code/start.sh" ]

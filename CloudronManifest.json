@@ -8,6 +8,7 @@
   "healthCheckPath": "/",
   "httpPort": 3000,
   "addons": {
+    "localstorage": {},
     "mongodb": {},
     "ldap": {}
   },
