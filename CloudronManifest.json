@@ -10,7 +10,8 @@
   "addons": {
     "localstorage": {},
     "mongodb": {},
-    "ldap": {}
+    "ldap": {},
+    "sendmail": {}
   },
   "targetBoxVersion": "0.0.66",
   "manifestVersion": 1,
