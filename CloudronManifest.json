@@ -18,6 +18,7 @@
   "website": "http://rocket.chat",
   "contactEmail": "apps@cloudron.io",
   "icon": "logo.png",
+  "tags": [ "chat", "webchat", "slack alternative" ],
   "mediaLinks": [
     "https://i.imgur.com/xZA1mV5.png",
     "https://i.imgur.com/IYBkBa3.png",
