@@ -18,5 +18,10 @@
   "website": "http://rocket.chat",
   "contactEmail": "apps@cloudron.io",
   "icon": "",
-  "mediaLinks": []
+  "mediaLinks": [
+    "https://i.imgur.com/xZA1mV5.png",
+    "https://i.imgur.com/IYBkBa3.png",
+    "https://i.imgur.com/uRT4LOA.png",
+    "https://i.imgur.com/m47p760.png"
+  ]
 }
