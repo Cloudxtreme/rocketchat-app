@@ -26,4 +26,6 @@ ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"SMTP_Username\" }, {
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"SMTP_Password\" }, { \$set: { value: \"\" }}, { upsert: true })"
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"From_Email\" }, { \$set: { value: \"no-reply@${MAIL_DOMAIN}\" }}, { upsert: true })"
 
-node /app/code/bundle/main.js
+chown -R cloudron:cloudron /app/data
+
+/usr/local/bin/gosu cloudron:cloudron node /app/code/bundle/main.js
