@@ -17,6 +17,7 @@ cloudron install --appstore-id chat.rocket.cloudronapp@latest
 The app package can be built using the [Cloudron command line tooling](https://cloudron.io/references/cli.html).
 
 ```
+cd rocketchat-app
 cloudron build
 cloudron install
 ```
