@@ -8,7 +8,7 @@ ENV PATH /usr/local/node-0.10.40/bin:$PATH
 RUN mkdir -p /app/code
 WORKDIR /app/code
 
-RUN curl -fSL "https://s3.amazonaws.com/rocketchatbuild/rocket.chat-v.latest.tgz" -o rocket.chat.tgz \
+RUN curl -fSL "https://s3.amazonaws.com/rocketchatbuild/rocket.chat-v0.7.1862.tgz" -o rocket.chat.tgz \
 &&  tar zxvf ./rocket.chat.tgz \
 &&  rm ./rocket.chat.tgz  \
 &&  cd /app/code/bundle/programs/server \
