@@ -22,3 +22,13 @@ cloudron build
 cloudron install
 ```
 
+## Testing
+
+The e2e tests are located in the `test/` folder and require [nodejs](http://nodejs.org/). They are creating a fresh build, install the app on your Cloudron, backup and restore. 
+
+```
+cd rocketchat-app/test
+
+npm install
+mocha test.js
+```
