@@ -18,6 +18,7 @@ The app package can be built using the [Cloudron command line tooling](https://c
 
 ```
 cd rocketchat-app
+
 cloudron build
 cloudron install
 ```
