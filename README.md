@@ -9,7 +9,7 @@ This repository contains the Cloudron app package source for [Rocket.Chat](https
 or using the [Cloudron command line tooling](https://cloudron.io/references/cli.html)
 
 ```
-cloudron install --appstore-id chat.rocket.cloudronapp@latest
+cloudron install --appstore-id chat.rocket.cloudronapp
 ```
 
 ## Building
