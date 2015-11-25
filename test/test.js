@@ -2,8 +2,7 @@
 
 'use strict';
 
-var async = require('async'),
-    execSync = require('child_process').execSync,
+var execSync = require('child_process').execSync,
     expect = require('expect.js'),
     path = require('path'),
     webdriver = require('selenium-webdriver');
@@ -51,7 +50,7 @@ describe('Application life cycle test', function () {
     });
 
     it('install app', function () {
-        execSync('cloudron install --new --location ' + LOCATION, { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
+        execSync('cloudron install --new --wait --location ' + LOCATION, { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
     });
 
     it('can get app information', function () {
@@ -60,22 +59,6 @@ describe('Application life cycle test', function () {
         app = inspect.apps.filter(function (a) { return a.location === LOCATION; })[0];
 
         expect(app).to.be.an('object');
-    });
-
-    it('wait for app to be functional', function (done) {
-        async.retry({ times: 10, interval: 2000 }, function (done) {
-            browser.get('https://' + app.fqdn + '/home');
-            browser.wait(until.elementLocated(by.name('emailOrUsername')), TEST_TIMEOUT)
-                .then(function () {
-                    done(null);
-                }).thenCatch(function () {
-                    console.log('App not yet running...');
-                    done('not yet');
-                });
-        }, function (error) {
-            expect(error).to.be(null);
-            done();
-        });
     });
 
     it('can login', function (done) {
@@ -111,22 +94,6 @@ describe('Application life cycle test', function () {
 
     it('restore app', function () {
         execSync('cloudron restore --app ' + app.id, { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
-    });
-
-    it('wait for app to be functional', function (done) {
-        async.retry({ times: 10, interval: 2000 }, function (done) {
-            browser.get('https://' + app.fqdn + '/home');
-            browser.wait(until.elementLocated(by.className('room-title')), TEST_TIMEOUT)
-                .then(function () {
-                    done();
-                }).thenCatch(function () {
-                    console.log('App not yet running...');
-                    done('not yet');
-                });
-        }, function (error) {
-            expect(error).to.be(null);
-            done();
-        });
     });
 
     it('message is still there', function (done) {
