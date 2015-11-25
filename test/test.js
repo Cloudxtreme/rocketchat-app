@@ -3,20 +3,47 @@
 'use strict';
 
 var execSync = require('child_process').execSync,
-    ejs = require('ejs'),
     expect = require('expect.js'),
-    fs = require('fs'),
-    mkdirp = require('mkdirp'),
     path = require('path'),
-    rimraf = require('rimraf'),
-    superagent = require('superagent');
+    webdriver = require('selenium-webdriver');
+
+var by = webdriver.By,
+    Keys = webdriver.Key,
+    until = webdriver.until;
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
+if (!process.env.USERNAME || !process.env.PASSWORD) {
+    console.log('USERNAME and PASSWORD env vars need to be set');
+    process.exit(1);
+}
 
 describe('Application life cycle test', function () {
     this.timeout(0);
 
-    var LOCATION = 'test' + Date.now();
+    var firefox = require('selenium-webdriver/firefox');
+    var server, browser = new firefox.Driver();
+
+    before(function (done) {
+        var seleniumJar= require('selenium-server-standalone-jar');
+        var SeleniumServer = require('selenium-webdriver/remote').SeleniumServer;
+        server = new SeleniumServer(seleniumJar.path, { port: 4444 });
+        server.start();
+
+        done();
+    });
+
+    after(function (done) {
+        browser.quit();
+        server.stop();
+        done();
+    });
+
+    // var LOCATION = 'test' + Date.now();
+    var LOCATION = 'test';
+    var TEST_MESSAGE = 'Hello Test!';
+    var TEST_CHANNEL = 'general';
+    var TEST_TIMEOUT = 5000;
     var app;
 
     it('build app', function () {
@@ -35,17 +62,32 @@ describe('Application life cycle test', function () {
         expect(app).to.be.an('object');
     });
 
-    it('can get the main page', function (done) {
-        superagent.get('https://' + app.fqdn).end(function (error, result) {
-            expect(error).to.be(null);
-            expect(result.status).to.eql(200);
-
-            done();
+    it('can login', function (done) {
+        browser.get('https://' + app.fqdn + '/home');
+        browser.wait(until.elementLocated(by.name('emailOrUsername')), TEST_TIMEOUT).then(function () {
+            browser.findElement(by.name('emailOrUsername')).sendKeys(process.env.USERNAME);
+            browser.findElement(by.name('pass')).sendKeys(process.env.PASSWORD);
+            browser.findElement(by.id('login-card')).submit();
+            browser.wait(until.elementLocated(by.className('room-title')), TEST_TIMEOUT).then(function () { done(); });
         });
     });
 
-    // TODO test ldap login
-    // TODO test chat message
+    it('can join channel', function (done) {
+        browser.get('https://' + app.fqdn + '/channel/' + TEST_CHANNEL);
+        browser.wait(until.elementLocated(by.className('join')), TEST_TIMEOUT).then(function () {
+            browser.findElement(by.className('join')).click();
+            browser.wait(until.elementLocated(by.name('msg')), TEST_TIMEOUT).then(function () { done(); });
+        });
+    });
+
+    it('can send message', function (done) {
+        browser.get('https://' + app.fqdn + '/channel/' + TEST_CHANNEL);
+        browser.wait(until.elementLocated(by.name('msg')), TEST_TIMEOUT).then(function () {
+            browser.findElement(by.name('msg')).sendKeys(TEST_MESSAGE);
+            browser.findElement(by.name('msg')).sendKeys(Keys.RETURN);
+            browser.wait(browser.findElement(by.xpath("//*[contains(text(), '" + TEST_MESSAGE + "')]")), TEST_TIMEOUT).then(function () { done(); });
+        });
+    });
 
     it('backup app', function () {
         execSync('cloudron backup --app ' + app.id, { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
@@ -55,16 +97,12 @@ describe('Application life cycle test', function () {
         execSync('cloudron restore --app ' + app.id, { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
     });
 
-    it('can get the main page after restore', function (done) {
-        superagent.get('https://' + app.fqdn).end(function (error, result) {
-            expect(error).to.be(null);
-            expect(result.status).to.eql(200);
-
-            done();
+    it('message is still there', function (done) {
+        browser.get('https://' + app.fqdn + '/channel/' + TEST_CHANNEL);
+        browser.wait(until.elementLocated(by.name('msg')), TEST_TIMEOUT).then(function () {
+            browser.wait(browser.findElement(by.xpath("//*[contains(text(), '" + TEST_MESSAGE + "')]")), TEST_TIMEOUT).then(function () { done(); });
         });
     });
-
-    // TODO test previously posted chat message
 
     it('uninstall app', function () {
         execSync('cloudron uninstall --app ' + app.id, { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
