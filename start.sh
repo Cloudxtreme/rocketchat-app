@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export ROOT_URL=https://$(hostname -f)
+export ROOT_URL="${APP_ORIGIN}"
 export MONGO_URL="${MONGODB_URL}"
 export PORT=3000
 
