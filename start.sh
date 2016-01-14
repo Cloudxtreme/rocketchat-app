@@ -14,6 +14,8 @@ ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"LDAP_Url\" }, { \$se
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"LDAP_Port\" }, { \$set: { value: \"${LDAP_PORT}\" }}, { upsert: true })"
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"LDAP_DN\" }, { \$set: { value: \"${LDAP_USERS_BASE_DN}\" }}, { upsert: true })"
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"LDAP_Bind_Search\" }, { \$set: { value: '{\"filter\": \"(&(objectCategory=person)(|(username=#{username})(mail=#{username})))\"}' }}, { upsert: true })"
+${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"LDAP_Sync_User_Data\" }, { \$set: { value: true }}, { upsert: true })"
+${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"LDAP_Sync_User_Data\" }, { \$set: { value: '{\"displayname\":\"name\", \"mail\":\"email\"}' }}, { upsert: true })"
 
 # Settings
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"Accounts_AllowUsernameChange\" }, { \$set: { value: false }}, { upsert: true })"
