@@ -26,7 +26,7 @@ ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"SMTP_Host\" }, { \$s
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"SMTP_Port\" }, { \$set: { value: \"${MAIL_SMTP_PORT}\" }}, { upsert: true })"
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"SMTP_Username\" }, { \$set: { value: \"${MAIL_SMTP_USERNAME}\" }}, { upsert: true })"
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"SMTP_Password\" }, { \$set: { value: \"\" }}, { upsert: true })"
-${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"From_Email\" }, { \$set: { value: \"no-reply@${MAIL_DOMAIN}\" }}, { upsert: true })"
+${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"From_Email\" }, { \$set: { value: \"${MAIL_SMTP_USERNAME}@${MAIL_DOMAIN}\" }}, { upsert: true })"
 
 chown -R cloudron:cloudron /app/data
 
