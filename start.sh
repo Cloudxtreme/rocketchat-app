@@ -2,6 +2,7 @@
 
 export ROOT_URL="${APP_ORIGIN}"
 export MONGO_URL="${MONGODB_URL}"
+export MAIL_URL="smtp://${MAIL_SMTP_SERVER}:${MAIL_SMTP_PORT}"
 export PORT=3000
 
 mkdir -p /app/data/www/
@@ -24,8 +25,9 @@ ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"Accounts_AllowPasswo
 # Email
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"SMTP_Host\" }, { \$set: { value: \"${MAIL_SMTP_SERVER}\" }}, { upsert: true })"
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"SMTP_Port\" }, { \$set: { value: \"${MAIL_SMTP_PORT}\" }}, { upsert: true })"
-${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"SMTP_Username\" }, { \$set: { value: \"${MAIL_SMTP_USERNAME}\" }}, { upsert: true })"
-${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"SMTP_Password\" }, { \$set: { value: \"\" }}, { upsert: true })"
+# do not set mail username and password, will result in wrong MAIL_URL
+# ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"SMTP_Username\" }, { \$set: { value: \"${MAIL_SMTP_USERNAME}\" }}, { upsert: true })"
+# ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"SMTP_Password\" }, { \$set: { value: \"\" }}, { upsert: true })"
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"From_Email\" }, { \$set: { value: \"${MAIL_SMTP_USERNAME}@${MAIL_DOMAIN}\" }}, { upsert: true })"
 
 chown -R cloudron:cloudron /app/data
