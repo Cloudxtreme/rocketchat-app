@@ -19,7 +19,7 @@
   "contactEmail": "apps@cloudron.io",
   "icon": "logo.png",
   "tags": [ "chat", "webchat", "slack alternative" ],
-  "changelog": "Update to current version",
+  "changelog": "file://CHANGELOG",
   "mediaLinks": [
     "https://i.imgur.com/xZA1mV5.png",
     "https://i.imgur.com/IYBkBa3.png",
