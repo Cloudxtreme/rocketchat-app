@@ -13,7 +13,7 @@ RUN nave usemain 0.10
 
 RUN curl https://install.meteor.com/ | sh
 
-RUN curl -fSL "https://github.com/RocketChat/Rocket.Chat/archive/0.13.0.tar.gz" -o rocket.chat.tgz \
+RUN curl -fSL "https://github.com/RocketChat/Rocket.Chat/archive/0.14.0.tar.gz" -o rocket.chat.tgz \
 &&  tar zxvf ./rocket.chat.tgz --strip 1\
 &&  rm ./rocket.chat.tgz
 RUN meteor build --server "localhost" --directory .
