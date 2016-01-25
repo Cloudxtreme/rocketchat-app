@@ -1,4 +1,10 @@
-#### From group messages and video calls all the way to helpdesk killer features.
+### Configuration
+
+This app will make the first user, logging in to the app, the administrator. The Cloudron admin property of users is not honored.
+
+### Overview
+
+A complete team chat solution, from group messages and video calls all the way to helpdesk killer features.
 
 ### Features
 * **Video Conference**
