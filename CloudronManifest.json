@@ -13,6 +13,7 @@
     "ldap": {},
     "sendmail": {}
   },
+  "developmentMode": false,
   "memoryLimit": 314572800,
   "targetBoxVersion": "0.4.0",
   "manifestVersion": 1,
