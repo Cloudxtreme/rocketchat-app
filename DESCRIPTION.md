@@ -6,7 +6,7 @@ This app will make the first user, logging in to the app, the administrator. The
 
 A complete team chat solution, from group messages and video calls all the way to helpdesk killer features.
 
-### Authentication
+### Accounts
 
 The app is preconfigured to use your Cloudron's `LDAP` and allows external users to sign up.
 
