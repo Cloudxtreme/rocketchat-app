@@ -73,10 +73,7 @@ describe('Application life cycle test', function () {
 
     it('can join channel', function (done) {
         browser.get('https://' + app.fqdn + '/channel/' + TEST_CHANNEL);
-        browser.wait(until.elementLocated(by.className('join')), TEST_TIMEOUT).then(function () {
-            browser.findElement(by.className('join')).click();
-            browser.wait(until.elementLocated(by.name('msg')), TEST_TIMEOUT).then(function () { done(); });
-        });
+        browser.wait(until.elementLocated(by.name('msg')), TEST_TIMEOUT).then(function () { done(); });
     });
 
     it('can send message', function (done) {
