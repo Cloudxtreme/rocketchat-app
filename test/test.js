@@ -93,6 +93,16 @@ describe('Application life cycle test', function () {
         execSync('cloudron restore --app ' + app.id, { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
     });
 
+    it('can login', function (done) {
+        browser.get('https://' + app.fqdn + '/home');
+        browser.wait(until.elementLocated(by.name('emailOrUsername')), TEST_TIMEOUT).then(function () {
+            browser.findElement(by.name('emailOrUsername')).sendKeys(process.env.USERNAME);
+            browser.findElement(by.name('pass')).sendKeys(process.env.PASSWORD);
+            browser.findElement(by.id('login-card')).submit();
+            browser.wait(until.elementLocated(by.className('room-title')), TEST_TIMEOUT).then(function () { done(); });
+        });
+    });
+
     it('message is still there', function (done) {
         browser.get('https://' + app.fqdn + '/channel/' + TEST_CHANNEL);
         browser.wait(until.elementLocated(by.name('msg')), TEST_TIMEOUT).then(function () {
@@ -106,6 +116,16 @@ describe('Application life cycle test', function () {
         var inspect = JSON.parse(execSync('cloudron inspect'));
         app = inspect.apps.filter(function (a) { return a.location === LOCATION + '2'; })[0];
         expect(app).to.be.an('object');
+    });
+
+    it('can login', function (done) {
+        browser.get('https://' + app.fqdn + '/home');
+        browser.wait(until.elementLocated(by.name('emailOrUsername')), TEST_TIMEOUT).then(function () {
+            browser.findElement(by.name('emailOrUsername')).sendKeys(process.env.USERNAME);
+            browser.findElement(by.name('pass')).sendKeys(process.env.PASSWORD);
+            browser.findElement(by.id('login-card')).submit();
+            browser.wait(until.elementLocated(by.className('room-title')), TEST_TIMEOUT).then(function () { done(); });
+        });
     });
 
     it('message is still there', function (done) {
