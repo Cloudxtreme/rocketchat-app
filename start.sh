@@ -32,4 +32,5 @@ ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"From_Email\" }, { \$
 
 chown -R cloudron:cloudron /app/data
 
+echo "Starting Rocket.Chat"
 exec /usr/local/bin/gosu cloudron:cloudron node /app/code/bundle/main.js
