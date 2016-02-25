@@ -100,6 +100,21 @@ describe('Application life cycle test', function () {
         });
     });
 
+    it('move to different location', function () {
+        browser.manage().deleteAllCookies();
+        execSync('cloudron install --location ' + LOCATION + '2', { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
+        var inspect = JSON.parse(execSync('cloudron inspect'));
+        app = inspect.apps.filter(function (a) { return a.location === LOCATION + '2'; })[0];
+        expect(app).to.be.an('object');
+    });
+
+    it('message is still there', function (done) {
+        browser.get('https://' + app.fqdn + '/channel/' + TEST_CHANNEL);
+        browser.wait(until.elementLocated(by.name('msg')), TEST_TIMEOUT).then(function () {
+            browser.wait(browser.findElement(by.xpath("//*[contains(text(), '" + TEST_MESSAGE + "')]")), TEST_TIMEOUT).then(function () { done(); });
+        });
+    });
+
     it('uninstall app', function () {
         execSync('cloudron uninstall --app ' + app.id, { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
     });
