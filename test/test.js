@@ -39,7 +39,7 @@ describe('Application life cycle test', function () {
         done();
     });
 
-    var LOCATION = 'test' + Date.now();
+    var LOCATION = 'rctest';
     var TEST_MESSAGE = 'Hello Test!';
     var TEST_CHANNEL = 'general';
     var TEST_TIMEOUT = 5000;
