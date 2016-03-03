@@ -5,8 +5,6 @@ export MONGO_URL="${MONGODB_URL}"
 export MAIL_URL="smtp://${MAIL_SMTP_SERVER}:${MAIL_SMTP_PORT}"
 export PORT=3000
 
-mkdir -p /app/data/www/
-
 mongo_cli="mongo ${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DATABASE} -u ${MONGODB_USERNAME} -p ${MONGODB_PASSWORD}"
 
 # LDAP
