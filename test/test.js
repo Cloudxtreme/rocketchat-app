@@ -95,6 +95,7 @@ describe('Application life cycle test', function () {
 
     it('can login', function (done) {
         browser.manage().deleteAllCookies();
+        browser.get('javascript:localStorage.clear();')
         browser.get('https://' + app.fqdn + '/home');
         browser.wait(until.elementLocated(by.name('emailOrUsername')), TEST_TIMEOUT).then(function () {
             browser.findElement(by.name('emailOrUsername')).sendKeys(process.env.USERNAME);
@@ -112,6 +113,7 @@ describe('Application life cycle test', function () {
     });
 
     it('move to different location', function () {
+        browser.get('javascript:localStorage.clear();')
         browser.manage().deleteAllCookies();
         execSync('cloudron install --location ' + LOCATION + '2', { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
         var inspect = JSON.parse(execSync('cloudron inspect'));
