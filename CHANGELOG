@@ -9,3 +9,8 @@
 [0.6.0]
 - Update to new version 0.16.0
 - Fix the login form button text
+
+[0.6.1]
+- Use release packages
+- Fix user data mapping from ldap
+
