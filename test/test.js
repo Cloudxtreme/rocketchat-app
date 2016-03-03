@@ -94,6 +94,7 @@ describe('Application life cycle test', function () {
     });
 
     it('can login', function (done) {
+        browser.manage().deleteAllCookies();
         browser.get('https://' + app.fqdn + '/home');
         browser.wait(until.elementLocated(by.name('emailOrUsername')), TEST_TIMEOUT).then(function () {
             browser.findElement(by.name('emailOrUsername')).sendKeys(process.env.USERNAME);
