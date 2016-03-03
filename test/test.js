@@ -42,7 +42,7 @@ describe('Application life cycle test', function () {
     var LOCATION = 'rctest';
     var TEST_MESSAGE = 'Hello Test!';
     var TEST_CHANNEL = 'general';
-    var TEST_TIMEOUT = process.env.TEST_TIMEOUT || 5000;
+    var TEST_TIMEOUT = parseInt(process.env.TEST_TIMEOUT, 10) || 5000;
     var app;
 
     xit('build app', function () {
