@@ -137,7 +137,7 @@ describe('Application life cycle test', function () {
         browser.wait(until.elementLocated(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]')), TEST_TIMEOUT);
         var img = browser.findElement(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]'));
         browser.executeScript('return arguments[0].complete && arguments[0].naturalWidth', img).then(function (imageWidth) {
-            done(imageWidth ? null : new Error('failed to load image'));
+            done(imageWidth === 512 ? null : new Error('failed to load image'));
         });
     });
 
@@ -171,7 +171,7 @@ describe('Application life cycle test', function () {
         browser.wait(until.elementLocated(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]')), TEST_TIMEOUT);
         var img = browser.findElement(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]'));
         browser.executeScript('return arguments[0].complete && arguments[0].naturalWidth', img).then(function (imageWidth) {
-            done(imageWidth ? null : new Error('failed to load image'));
+            done(imageWidth === 512 ? null : new Error('failed to load image'));
         });
     });
 
@@ -216,7 +216,7 @@ describe('Application life cycle test', function () {
         browser.wait(until.elementLocated(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]')), TEST_TIMEOUT);
         var img = browser.findElement(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]'));
         browser.executeScript('return arguments[0].complete && arguments[0].naturalWidth', img).then(function (imageWidth) {
-            done(imageWidth ? null : new Error('failed to load image'));
+            done(imageWidth === 512 ? null : new Error('failed to load image'));
         });
     });
 
