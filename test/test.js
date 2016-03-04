@@ -161,6 +161,14 @@ describe('Application life cycle test', function () {
         });
     });
 
+    it('does not show warning', function (done) {
+        browser.findElement(by.xpath('//h2[contains(text(), "Warning")]')).then(function () {
+            done(new Error('warning is shown'));
+        }).catch(function () {
+            done();
+        });
+    });
+
     it('message is still there', function (done) {
         browser.get('https://' + app.fqdn + '/channel/' + TEST_CHANNEL);
         browser.wait(until.elementLocated(by.name('msg')), TEST_TIMEOUT).then(function () {
