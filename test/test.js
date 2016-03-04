@@ -141,6 +141,40 @@ describe('Application life cycle test', function () {
         });
     });
 
+    it('can restart app', function (done) {
+        execSync('cloudron restart');
+        done();
+    });
+
+    it('can login', function (done) {
+        browser.manage().deleteAllCookies();
+        browser.get('javascript:localStorage.clear();')
+        browser.get('https://' + app.fqdn + '/home');
+        browser.wait(until.elementLocated(by.name('emailOrUsername')), TEST_TIMEOUT).then(function () {
+            browser.findElement(by.name('emailOrUsername')).sendKeys(process.env.USERNAME);
+            browser.findElement(by.name('pass')).sendKeys(process.env.PASSWORD);
+            browser.findElement(by.id('login-card')).submit();
+            browser.wait(until.elementLocated(by.className('room-title')), TEST_TIMEOUT).then(function () { done(); });
+        });
+    });
+
+    it('message is still there', function (done) {
+        browser.get('https://' + app.fqdn + '/channel/' + TEST_CHANNEL);
+        browser.wait(until.elementLocated(by.name('msg')), TEST_TIMEOUT).then(function () {
+            browser.wait(browser.findElement(by.xpath("//*[contains(text(), '" + TEST_MESSAGE + "')]")), TEST_TIMEOUT).then(function () { done(); });
+        });
+    });
+
+    it('uploaded file is still there', function (done) {
+        // cannot use superagent because it is protected by login
+        browser.get('https://' + app.fqdn + '/channel/' + TEST_CHANNEL);
+        browser.wait(until.elementLocated(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]')), TEST_TIMEOUT);
+        var img = browser.findElement(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]'));
+        browser.executeScript('return arguments[0].complete && arguments[0].naturalWidth', img).then(function (imageWidth) {
+            done(imageWidth ? null : new Error('failed to load image'));
+        });
+    });
+
     it('move to different location', function () {
         browser.get('javascript:localStorage.clear();')
         browser.manage().deleteAllCookies();
