@@ -5,6 +5,7 @@
 var execSync = require('child_process').execSync,
     expect = require('expect.js'),
     path = require('path'),
+    superagent = require('superagent'),
     webdriver = require('selenium-webdriver');
 
 var by = webdriver.By,
@@ -22,7 +23,7 @@ describe('Application life cycle test', function () {
     this.timeout(0);
 
     var firefox = require('selenium-webdriver/firefox');
-    var server, browser = new firefox.Driver();
+    var server, browser = new firefox.Driver(), uploadedImageUrl;
 
     before(function (done) {
         var seleniumJar= require('selenium-server-standalone-jar');
@@ -85,6 +86,24 @@ describe('Application life cycle test', function () {
         });
     });
 
+    it('can upload file', function (done) {
+        browser.get('https://' + app.fqdn + '/channel/' + TEST_CHANNEL);
+        browser.wait(until.elementLocated(by.name('msg')), TEST_TIMEOUT).then(function () {
+            browser.findElement(by.xpath('//input[@type="file"]')).sendKeys(path.resolve(__dirname, '../logo.png'));
+            browser.wait(browser.findElement(by.xpath('//h2[contains(text(), "Upload file?")]')), TEST_TIMEOUT);
+            browser.sleep(5000);
+            browser.findElement(by.xpath('//button[contains(text(), "OK")]')).click();
+            browser.sleep(5000);
+            browser.findElement(by.xpath('//a[contains(text(), "File Uploaded")]')).getAttribute('href').then(function (val) {
+                uploadedImageUrl = val;
+                console.log('Image was uploaded to ', val);
+                if (!val.startsWith('https://' + app.fqdn + '/ufs/rocketchat_uploads/')) return done(new Error('Incorrect upload URL'));
+
+                done();
+            });
+        });
+    });
+
     it('backup app', function () {
         execSync('cloudron backup --app ' + app.id, { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
     });
@@ -112,6 +131,16 @@ describe('Application life cycle test', function () {
         });
     });
 
+    it('uploaded file is still there', function (done) {
+        // cannot use superagent because it is protected by login
+        browser.get('https://' + app.fqdn + '/channel/' + TEST_CHANNEL);
+        browser.wait(until.elementLocated(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]')), TEST_TIMEOUT);
+        var img = browser.findElement(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]'));
+        browser.executeScript('return arguments[0].complete && arguments[0].naturalWidth', img).then(function (imageWidth) {
+            done(imageWidth ? null : new Error('failed to load image'));
+        });
+    });
+
     it('move to different location', function () {
         browser.get('javascript:localStorage.clear();')
         browser.manage().deleteAllCookies();
@@ -119,6 +148,7 @@ describe('Application life cycle test', function () {
         var inspect = JSON.parse(execSync('cloudron inspect'));
         app = inspect.apps.filter(function (a) { return a.location === LOCATION + '2'; })[0];
         expect(app).to.be.an('object');
+        uploadedImageUrl = uploadedImageUrl.replace(LOCATION, LOCATION + '2');
     });
 
     it('can login', function (done) {
@@ -138,7 +168,17 @@ describe('Application life cycle test', function () {
         });
     });
 
-    it('uninstall app', function () {
+    it('uploaded file is still there', function (done) {
+        // cannot use superagent because it is protected by login
+        browser.get('https://' + app.fqdn + '/channel/' + TEST_CHANNEL);
+        browser.wait(until.elementLocated(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]')), TEST_TIMEOUT);
+        var img = browser.findElement(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]'));
+        browser.executeScript('return arguments[0].complete && arguments[0].naturalWidth', img).then(function (imageWidth) {
+            done(imageWidth ? null : new Error('failed to load image'));
+        });
+    });
+
+    xit('uninstall app', function () {
         execSync('cloudron uninstall --app ' + app.id, { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
     });
 });

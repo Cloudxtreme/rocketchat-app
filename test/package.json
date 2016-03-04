@@ -16,6 +16,6 @@
     "rimraf": "^2.4.3",
     "selenium-server-standalone-jar": "^2.47.1",
     "selenium-webdriver": "^2.48.2",
-    "superagent": "^1.4.0"
+    "superagent": "^1.7.2"
   }
 }
