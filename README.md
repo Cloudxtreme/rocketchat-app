@@ -33,3 +33,10 @@ cd rocketchat-app/test
 npm install
 USERNAME=<cloudron username> PASSWORD=<cloudron password> mocha --bail test.js
 ```
+
+## MongoDB commands
+
+* Get collection names using `db.getCollectionNames()`
+* To list a collection use `db.rocketchat_settings.find()`
+* For a specific key use `db.rocketchat_settings.find({ _id: 'Site_URL' } )`
+
