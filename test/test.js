@@ -178,7 +178,7 @@ describe('Application life cycle test', function () {
         });
     });
 
-    xit('uninstall app', function () {
+    it('uninstall app', function () {
         execSync('cloudron uninstall --app ' + app.id, { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
     });
 });
