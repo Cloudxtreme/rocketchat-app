@@ -4,6 +4,7 @@ export ROOT_URL="${APP_ORIGIN}"
 export MONGO_URL="${MONGODB_URL}"
 export PORT=3000
 
+# Note : we do not use env vars because setting env var does not update existing value
 mongo_cli="mongo ${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DATABASE} -u ${MONGODB_USERNAME} -p ${MONGODB_PASSWORD}"
 
 # LDAP
