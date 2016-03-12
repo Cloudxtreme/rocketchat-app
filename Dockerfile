@@ -8,7 +8,7 @@ ENV PATH /usr/local/node-0.10.40/bin:$PATH
 RUN mkdir -p /app/code
 WORKDIR /app/code
 
-RUN curl -SLf "https://rocket.chat/releases/0.20.0/download" | tar -zxf - -C /app/code \
+RUN curl -SLf "https://rocket.chat/releases/0.21.0/download" | tar -zxf - -C /app/code \
   && cd /app/code/bundle/programs/server \
   && npm install \
   && npm cache clear
