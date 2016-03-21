@@ -97,7 +97,7 @@ describe('Application life cycle test', function () {
             browser.findElement(by.xpath('//a[contains(text(), "File Uploaded")]')).getAttribute('href').then(function (val) {
                 uploadedImageUrl = val;
                 console.log('Image was uploaded to ', val);
-                if (!val.startsWith('https://' + app.fqdn + '/ufs/rocketchat_uploads/')) return done(new Error('Incorrect upload URL'));
+                if (!val.startsWith('https://' + app.fqdn + '/file-upload/')) return done(new Error('Incorrect upload URL')); // these are per room (ea9d00835480)
 
                 done();
             });
