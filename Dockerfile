@@ -5,6 +5,8 @@ EXPOSE 3000
 
 ENV PATH /usr/local/node-0.10.40/bin:$PATH
 
+RUN apt-get update && apt-get install -y graphicsmagick && rm -r /var/cache/apt /var/lib/apt/lists
+
 RUN mkdir -p /app/code
 WORKDIR /app/code
 
