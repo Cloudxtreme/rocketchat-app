@@ -26,3 +26,8 @@
 [0.9.0]
 - Update to new version 0.22.0
 
+[0.10.0]
+- Update to new version 0.23.0
+- Fix issue where an error was displayed when creating a web integration
+- Enable imagemagick support
+
