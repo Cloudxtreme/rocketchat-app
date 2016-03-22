@@ -15,6 +15,9 @@ RUN curl -SLf "https://rocket.chat/releases/0.23.0/download" | tar -zxf - -C /ap
   && npm install \
   && npm cache clear
 
+# For some reason, setting BABEL_CACHE_PATH env var doesn't work
+RUN ln -s /run/rocket.chat/babel-cache /home/cloudron/.babel-cache
+
 ADD start.sh /app/code/start.sh
 
 CMD [ "/app/code/start.sh" ]

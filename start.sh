@@ -4,6 +4,8 @@ export ROOT_URL="${APP_ORIGIN}"
 export MONGO_URL="${MONGODB_URL}"
 export PORT=3000
 
+mkdir -p /run/rocket.chat/babel-cache
+
 # Note : we do not use env vars because setting env var does not update existing value
 mongo_cli="mongo ${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DATABASE} -u ${MONGODB_USERNAME} -p ${MONGODB_PASSWORD}"
 
@@ -39,7 +41,7 @@ ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"SMTP_Port\" }, { \$s
 # ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"SMTP_Password\" }, { \$set: { value: \"\" }}, { upsert: true })"
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"From_Email\" }, { \$set: { value: \"${MAIL_SMTP_USERNAME}@${MAIL_DOMAIN}\" }}, { upsert: true })"
 
-chown -R cloudron:cloudron /app/data
+chown -R cloudron:cloudron /app/data /run/rocket.chat
 
 echo "Starting Rocket.Chat"
 exec /usr/local/bin/gosu cloudron:cloudron node /app/code/bundle/main.js
