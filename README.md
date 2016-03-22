@@ -34,6 +34,10 @@ npm install
 USERNAME=<cloudron username> PASSWORD=<cloudron password> mocha --bail test.js
 ```
 
+## Debugging
+
+In the Administration panel, enable debug output in `Settings` -> `Logs`.
+
 ## MongoDB commands
 
 * Get collection names using `db.getCollectionNames()`
