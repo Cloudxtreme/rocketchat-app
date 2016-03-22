@@ -40,6 +40,11 @@ In the Administration panel, enable debug output in `Settings` -> `Logs`.
 
 ## MongoDB commands
 
+```
+cloudron exec
+# mongo -u "${MONGODB_USERNAME}" -p "${MONGODB_PASSWORD}" ${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DATABASE}
+```
+
 * Get collection names using `db.getCollectionNames()`
 * To list a collection use `db.rocketchat_settings.find()`
 * For a specific key use `db.rocketchat_settings.find({ _id: 'Site_URL' } )`
