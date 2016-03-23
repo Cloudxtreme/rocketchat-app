@@ -4,7 +4,7 @@ This repository contains the Cloudron app package source for [Rocket.Chat](https
 
 ## Installation
 
-[![Install](https://cloudron.io/img/button32.png)](https://cloudron.io/button.html?app=chat.rocket.cloudronapp)
+[![Install](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=chat.rocket.cloudronapp)
 
 or using the [Cloudron command line tooling](https://cloudron.io/references/cli.html)
 
