@@ -31,3 +31,7 @@
 - Fix issue where an error was displayed when creating a web integration
 - Enable imagemagick support
 
+[0.11.0]
+- Update to latest version 0.24.0
+- Fix url of logo asset
+
