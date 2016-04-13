@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eu -o pipefail
+
 export ROOT_URL="${APP_ORIGIN}"
 export MONGO_URL="${MONGODB_URL}"
 export PORT=3000
