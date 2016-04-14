@@ -35,3 +35,7 @@
 - Update to latest version 0.24.0
 - Fix url of logo asset
 
+[0.12.0]
+- Update to latest version 0.26.0
+- Allow email login
+
