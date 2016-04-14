@@ -14,7 +14,7 @@ var by = webdriver.By,
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-if (!process.env.USERNAME || !process.env.PASSWORD) {
+if (!process.env.USERNAME || !password) {
     console.log('USERNAME and PASSWORD env vars need to be set');
     process.exit(1);
 }
@@ -24,6 +24,7 @@ describe('Application life cycle test', function () {
 
     var firefox = require('selenium-webdriver/firefox');
     var server, browser = new firefox.Driver(), uploadedImageUrl;
+    var username = process.env.USERNAME, password = process.env.PASSWORD;
 
     before(function (done) {
         var seleniumJar= require('selenium-server-standalone-jar');
@@ -89,8 +90,8 @@ describe('Application life cycle test', function () {
     it('can login', function (done) {
         browser.get('https://' + app.fqdn + '/home');
         browser.wait(until.elementLocated(by.name('emailOrUsername')), TEST_TIMEOUT).then(function () {
-            browser.findElement(by.name('emailOrUsername')).sendKeys(process.env.USERNAME);
-            browser.findElement(by.name('pass')).sendKeys(process.env.PASSWORD);
+            browser.findElement(by.name('emailOrUsername')).sendKeys(username);
+            browser.findElement(by.name('pass')).sendKeys(password);
             browser.findElement(by.id('login-card')).submit();
             browser.wait(until.elementLocated(by.className('room-title')), TEST_TIMEOUT).then(function () { done(); });
         });
@@ -141,8 +142,8 @@ describe('Application life cycle test', function () {
         browser.get('javascript:localStorage.clear();')
         browser.get('https://' + app.fqdn + '/home');
         browser.wait(until.elementLocated(by.name('emailOrUsername')), TEST_TIMEOUT).then(function () {
-            browser.findElement(by.name('emailOrUsername')).sendKeys(process.env.USERNAME);
-            browser.findElement(by.name('pass')).sendKeys(process.env.PASSWORD);
+            browser.findElement(by.name('emailOrUsername')).sendKeys(username);
+            browser.findElement(by.name('pass')).sendKeys(password);
             browser.findElement(by.id('login-card')).submit();
             browser.wait(until.elementLocated(by.className('room-title')), TEST_TIMEOUT).then(function () { done(); });
         });
@@ -175,8 +176,8 @@ describe('Application life cycle test', function () {
         browser.get('javascript:localStorage.clear();')
         browser.get('https://' + app.fqdn + '/home');
         browser.wait(until.elementLocated(by.name('emailOrUsername')), TEST_TIMEOUT).then(function () {
-            browser.findElement(by.name('emailOrUsername')).sendKeys(process.env.USERNAME);
-            browser.findElement(by.name('pass')).sendKeys(process.env.PASSWORD);
+            browser.findElement(by.name('emailOrUsername')).sendKeys(username);
+            browser.findElement(by.name('pass')).sendKeys(password);
             browser.findElement(by.id('login-card')).submit();
             browser.wait(until.elementLocated(by.className('room-title')), TEST_TIMEOUT).then(function () { done(); });
         });
@@ -212,8 +213,8 @@ describe('Application life cycle test', function () {
     it('can login', function (done) {
         browser.get('https://' + app.fqdn + '/home');
         browser.wait(until.elementLocated(by.name('emailOrUsername')), TEST_TIMEOUT).then(function () {
-            browser.findElement(by.name('emailOrUsername')).sendKeys(process.env.USERNAME);
-            browser.findElement(by.name('pass')).sendKeys(process.env.PASSWORD);
+            browser.findElement(by.name('emailOrUsername')).sendKeys(username);
+            browser.findElement(by.name('pass')).sendKeys(password);
             browser.findElement(by.id('login-card')).submit();
             browser.wait(until.elementLocated(by.className('room-title')), TEST_TIMEOUT).then(function () { done(); });
         });
@@ -260,8 +261,8 @@ describe('Application life cycle test', function () {
         browser.get('javascript:localStorage.clear();')
         browser.get('https://' + app.fqdn + '/home');
         browser.wait(until.elementLocated(by.name('emailOrUsername')), TEST_TIMEOUT).then(function () {
-            browser.findElement(by.name('emailOrUsername')).sendKeys(process.env.USERNAME);
-            browser.findElement(by.name('pass')).sendKeys(process.env.PASSWORD);
+            browser.findElement(by.name('emailOrUsername')).sendKeys(username);
+            browser.findElement(by.name('pass')).sendKeys(password);
             browser.findElement(by.id('login-card')).submit();
             browser.wait(until.elementLocated(by.className('room-title')), TEST_TIMEOUT).then(function () {
                 execSync('cloudron uninstall --app ' + app.id, { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
