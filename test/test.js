@@ -14,7 +14,7 @@ var by = webdriver.By,
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-if (!process.env.USERNAME || !password) {
+if (!process.env.USERNAME || !process.env.PASSWORD) {
     console.log('USERNAME and PASSWORD env vars need to be set');
     process.exit(1);
 }
