@@ -45,9 +45,33 @@ describe('Application life cycle test', function () {
     var TEST_CHANNEL = 'general';
     var TEST_TIMEOUT = parseInt(process.env.TEST_TIMEOUT, 10) || 5000;
     var app;
+    var email, token;
 
     xit('build app', function () {
         execSync('cloudron build', { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
+    });
+
+    it('can login', function (done) {
+        var inspect = JSON.parse(execSync('cloudron inspect'));
+
+        superagent.post('https://' + inspect.apiEndpoint + '/api/v1/developer/login').send({
+            username: username,
+            password: password
+        }).end(function (error, result) {
+            if (error) return done(error);
+            if (result.statusCode !== 200) return done(new Error('Login failed with status ' + result.statusCode));
+
+            token = result.body.token;
+
+            superagent.get('https://' + inspect.apiEndpoint + '/api/v1/profile')
+                .query({ access_token: token }).end(function (error, result) {
+                if (error) return done(error);
+                if (result.statusCode !== 200) return done(new Error('Get profile failed with status ' + result.statusCode));
+
+                email = result.body.email;
+                done();
+            });
+        });
     });
 
     it('install app', function () {
@@ -223,4 +247,27 @@ describe('Application life cycle test', function () {
     it('uninstall app', function () {
         execSync('cloudron uninstall --app ' + app.id, { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
     });
+
+    // check if the _first_ login via email succeeds
+    it('can login via email', function (done) {
+        execSync('cloudron install --new --wait --location ' + LOCATION, { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
+        var inspect = JSON.parse(execSync('cloudron inspect'));
+
+        app = inspect.apps.filter(function (a) { return a.location === LOCATION; })[0];
+        expect(app).to.be.an('object');
+
+        browser.manage().deleteAllCookies();
+        browser.get('javascript:localStorage.clear();')
+        browser.get('https://' + app.fqdn + '/home');
+        browser.wait(until.elementLocated(by.name('emailOrUsername')), TEST_TIMEOUT).then(function () {
+            browser.findElement(by.name('emailOrUsername')).sendKeys(process.env.USERNAME);
+            browser.findElement(by.name('pass')).sendKeys(process.env.PASSWORD);
+            browser.findElement(by.id('login-card')).submit();
+            browser.wait(until.elementLocated(by.className('room-title')), TEST_TIMEOUT).then(function () {
+                execSync('cloudron uninstall --app ' + app.id, { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
+                done();
+            });
+        });
+    });
+
 });
