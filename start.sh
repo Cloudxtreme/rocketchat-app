@@ -11,10 +11,12 @@ mkdir -p /run/rocket.chat/babel-cache
 # Note : we do not use env vars because setting env var does not update existing value
 mongo_cli="mongo ${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DATABASE} -u ${MONGODB_USERNAME} -p ${MONGODB_PASSWORD}"
 
+# See https://github.com/RocketChat/Rocket.Chat/blob/master/packages/rocketchat-ldap/server/settings.js
 # LDAP
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"LDAP_Enable\" }, { \$set: { value: true }}, { upsert: true })"
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"LDAP_Host\" }, { \$set: { value: \"${LDAP_SERVER}\" }}, { upsert: true })"
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"LDAP_Port\" }, { \$set: { value: \"${LDAP_PORT}\" }}, { upsert: true })"
+${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"LDAP_Encryption\" }, { \$set: { value: \"plain\" }}, { upsert: true })"
 
 # LDAP Bind
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"LDAP_Use_Custom_Domain_Search\" }, { \$set: { value: true }}, { upsert: true })"
