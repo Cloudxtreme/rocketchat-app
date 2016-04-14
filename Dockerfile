@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y graphicsmagick && rm -r /var/cache/apt 
 RUN mkdir -p /app/code
 WORKDIR /app/code
 
-RUN curl -SLf "https://rocket.chat/releases/0.24.0/download" | tar -zxf - -C /app/code \
+RUN curl -SLf "https://rocket.chat/releases/0.26.0/download" | tar -zxf - -C /app/code \
   && cd /app/code/bundle/programs/server \
   && npm install \
   && npm cache clear
