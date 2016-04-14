@@ -30,7 +30,7 @@ ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"LDAP_Unique_Identifi
 # LDAP Sync on login
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"LDAP_Sync_User_Data\" }, { \$set: { value: true }}, { upsert: true })"
 # ldap -> user
-${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"LDAP_Sync_User_Data_FieldMap\" }, { \$set: { value: '{\"username\":\"name\", \"mail\":\"email\"}' }}, { upsert: true })"
+${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"LDAP_Sync_User_Data_FieldMap\" }, { \$set: { value: '{\"displayname\":\"name\", \"mail\":\"email\"}' }}, { upsert: true })"
 
 # Settings
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"Site_Url\" }, { \$set: { value: \"${APP_ORIGIN}\" }}, { upsert: true })"
