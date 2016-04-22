@@ -39,3 +39,6 @@
 - Update to latest version 0.26.0
 - Allow email login
 
+[0.12.1]
+- Update to Rocket.Chat 0.27.0
+
