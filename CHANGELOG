@@ -44,3 +44,7 @@
 
 [0.12.2]
 - Update to Rocket.Chat 0.29.0
+
+[0.12.3]
+- Use latest SMTP settings
+

@@ -4,7 +4,8 @@
   "author": "RocketChat Developers",
   "description": "file://DESCRIPTION.md",
   "tagline": "The Complete Open Source Chat Solution",
-  "version": "0.12.2",
+  "version": "0.12.3",
+  "minBoxVersion": "0.13.3",
   "healthCheckPath": "/",
   "httpPort": 3000,
   "addons": {
