@@ -22,8 +22,8 @@ if (!process.env.USERNAME || !process.env.PASSWORD) {
 describe('Application life cycle test', function () {
     this.timeout(0);
 
-    var firefox = require('selenium-webdriver/firefox');
-    var server, browser = new firefox.Driver(), uploadedImageUrl;
+    var chrome = require('selenium-webdriver/chrome');
+    var server, browser = new chrome.Driver(), uploadedImageUrl;
     var username = process.env.USERNAME, password = process.env.PASSWORD;
 
     before(function (done) {
