@@ -24,9 +24,9 @@
   "tags": [ "chat", "webchat", "slack alternative" ],
   "changelog": "file://CHANGELOG",
   "mediaLinks": [
-    "https://i.imgur.com/xZA1mV5.png",
-    "https://i.imgur.com/IYBkBa3.png",
-    "https://i.imgur.com/uRT4LOA.png",
-    "https://i.imgur.com/m47p760.png"
+    "https://raw.githubusercontent.com/cloudron-io/rocketchat-app/cdecd38b88/screenshots/1.png",
+    "https://raw.githubusercontent.com/cloudron-io/rocketchat-app/cdecd38b88/screenshots/2.png",
+    "https://raw.githubusercontent.com/cloudron-io/rocketchat-app/cdecd38b88/screenshots/3.png",
+    "https://raw.githubusercontent.com/cloudron-io/rocketchat-app/cdecd38b88/screenshots/4.png"
   ]
 }
