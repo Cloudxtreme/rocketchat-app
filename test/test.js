@@ -139,7 +139,8 @@ describe('Application life cycle test', function () {
 
     it('can login', function (done) {
         browser.manage().deleteAllCookies();
-        browser.get('javascript:localStorage.clear();')
+        browser.get('https://' + app.fqdn + '/home');
+        browser.executeScript('localStorage.clear();')
         browser.get('https://' + app.fqdn + '/home');
         browser.wait(until.elementLocated(by.name('emailOrUsername')), TEST_TIMEOUT).then(function () {
             browser.findElement(by.name('emailOrUsername')).sendKeys(username);
@@ -173,7 +174,8 @@ describe('Application life cycle test', function () {
 
     it('can login', function (done) {
         browser.manage().deleteAllCookies();
-        browser.get('javascript:localStorage.clear();')
+        browser.get('https://' + app.fqdn + '/home');
+        browser.executeScript('localStorage.clear();')
         browser.get('https://' + app.fqdn + '/home');
         browser.wait(until.elementLocated(by.name('emailOrUsername')), TEST_TIMEOUT).then(function () {
             browser.findElement(by.name('emailOrUsername')).sendKeys(username);
@@ -201,8 +203,9 @@ describe('Application life cycle test', function () {
     });
 
     it('move to different location', function () {
-        browser.get('javascript:localStorage.clear();')
         browser.manage().deleteAllCookies();
+        browser.get('https://' + app.fqdn + '/home');
+        browser.executeScript('localStorage.clear();')
         execSync('cloudron install --location ' + LOCATION + '2', { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
         var inspect = JSON.parse(execSync('cloudron inspect'));
         app = inspect.apps.filter(function (a) { return a.location === LOCATION + '2'; })[0];
@@ -258,7 +261,8 @@ describe('Application life cycle test', function () {
         expect(app).to.be.an('object');
 
         browser.manage().deleteAllCookies();
-        browser.get('javascript:localStorage.clear();')
+        browser.get('https://' + app.fqdn + '/home');
+        browser.executeScript('localStorage.clear();')
         browser.get('https://' + app.fqdn + '/home');
         browser.wait(until.elementLocated(by.name('emailOrUsername')), TEST_TIMEOUT).then(function () {
             browser.findElement(by.name('emailOrUsername')).sendKeys(username);
