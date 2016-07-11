@@ -206,7 +206,7 @@ describe('Application life cycle test', function () {
         browser.manage().deleteAllCookies();
         browser.get('https://' + app.fqdn + '/home');
         browser.executeScript('localStorage.clear();')
-        execSync('cloudron install --location ' + LOCATION + '2', { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
+        execSync('cloudron install --wait --location ' + LOCATION + '2', { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
         var inspect = JSON.parse(execSync('cloudron inspect'));
         app = inspect.apps.filter(function (a) { return a.location === LOCATION + '2'; })[0];
         expect(app).to.be.an('object');
