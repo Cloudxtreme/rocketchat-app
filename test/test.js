@@ -206,6 +206,10 @@ describe('Application life cycle test', function () {
         browser.manage().deleteAllCookies();
         browser.get('https://' + app.fqdn + '/home');
         browser.executeScript('localStorage.clear();')
+        // this attempts to clear the page. without this chrome does not load the next get() properly. not sure why
+        browser.get('about:blank');
+        browser.sleep(4000);
+
         execSync('cloudron install --wait --location ' + LOCATION + '2', { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
         var inspect = JSON.parse(execSync('cloudron inspect'));
         app = inspect.apps.filter(function (a) { return a.location === LOCATION + '2'; })[0];
