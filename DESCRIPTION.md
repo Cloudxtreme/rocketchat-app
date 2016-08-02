@@ -4,11 +4,12 @@ A complete team chat solution, from group messages and video calls all the way t
 
 ### Accounts
 
-The app is preconfigured to use your Cloudron's `LDAP` and allows external users to sign up.
+The app is preconfigured to use your Cloudron's `LDAP`. Simply add/remove users in the Cloudron Admin page
+to manage Rocket.Chat users.
 
 The first user to login becomes the Rocket.Chat `administrator`. This administrator can mark other
-users as administators for the application. (Please note that the Cloudron admin status is not carried
-over to the Rocket.Chat automatically).
+users as administators for the application. Please note that the Cloudron admin status is not carried
+over to the Rocket.Chat automatically (This is expected to be fixed in a future version).
 
 To enable external registration, go to `Administration` -> `Accounts` -> `Registration Form`. Choose `Public`.
 
