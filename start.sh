@@ -36,6 +36,7 @@ ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"LDAP_Sync_User_Data_
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"Site_Url\" }, { \$set: { value: \"${APP_ORIGIN}\" }}, { upsert: true })"
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"Accounts_AllowUsernameChange\" }, { \$set: { value: false }}, { upsert: true })"
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"Accounts_AllowPasswordChange\" }, { \$set: { value: false }}, { upsert: true })"
+${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"Accounts_RegistrationForm\" }, { \$set: { value: \"Disabled\" }}, { upsert: true })"
 
 # Email
 ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"SMTP_Host\" }, { \$set: { value: \"${MAIL_SMTP_SERVER}\" }}, { upsert: true })"
