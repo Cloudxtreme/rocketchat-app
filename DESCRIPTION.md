@@ -1,3 +1,5 @@
+This app packages Rocket.Chat 0.36.0
+
 ### Overview
 
 A complete team chat solution, from group messages and video calls all the way to helpdesk killer features.
