@@ -160,10 +160,10 @@ describe('Application life cycle test', function () {
     it('uploaded file is still there', function (done) {
         // cannot use superagent because it is protected by login
         browser.get('https://' + app.fqdn + '/channel/' + TEST_CHANNEL);
-        browser.wait(until.elementLocated(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]')), TEST_TIMEOUT);
-        var img = browser.findElement(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]'));
+        browser.wait(until.elementLocated(by.xpath('//img[@src="' + uploadedImageUrl + '"]')), TEST_TIMEOUT);
+        var img = browser.findElement(by.xpath('//img[@src="' + uploadedImageUrl + '"]'));
         browser.executeScript('return arguments[0].complete && arguments[0].naturalWidth', img).then(function (imageWidth) {
-            done(imageWidth === 512 ? null : new Error('failed to load image'));
+            done(imageWidth === 512 ? null : new Error('failed to load image. width is:' + imageWidth));
         });
     });
 
@@ -195,10 +195,10 @@ describe('Application life cycle test', function () {
     it('uploaded file is still there', function (done) {
         // cannot use superagent because it is protected by login
         browser.get('https://' + app.fqdn + '/channel/' + TEST_CHANNEL);
-        browser.wait(until.elementLocated(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]')), TEST_TIMEOUT);
-        var img = browser.findElement(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]'));
+        browser.wait(until.elementLocated(by.xpath('//img[@src="' + uploadedImageUrl + '"]')), TEST_TIMEOUT);
+        var img = browser.findElement(by.xpath('//img[@src="' + uploadedImageUrl + '"]'));
         browser.executeScript('return arguments[0].complete && arguments[0].naturalWidth', img).then(function (imageWidth) {
-            done(imageWidth === 512 ? null : new Error('failed to load image'));
+            done(imageWidth === 512 ? null : new Error('failed to load image. width is:' + imageWidth));
         });
     });
 
@@ -244,10 +244,10 @@ describe('Application life cycle test', function () {
     it('uploaded file is still there', function (done) {
         // cannot use superagent because it is protected by login
         browser.get('https://' + app.fqdn + '/channel/' + TEST_CHANNEL);
-        browser.wait(until.elementLocated(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]')), TEST_TIMEOUT);
-        var img = browser.findElement(by.xpath('//img[@src="' + uploadedImageUrl.replace('https://' + app.fqdn, '') + '"]'));
+        browser.wait(until.elementLocated(by.xpath('//img[@src="' + uploadedImageUrl + '"]')), TEST_TIMEOUT);
+        var img = browser.findElement(by.xpath('//img[@src="' + uploadedImageUrl + '"]'));
         browser.executeScript('return arguments[0].complete && arguments[0].naturalWidth', img).then(function (imageWidth) {
-            done(imageWidth === 512 ? null : new Error('failed to load image'));
+            done(imageWidth === 512 ? null : new Error('failed to load image. width is:' + imageWidth));
         });
     });
 
