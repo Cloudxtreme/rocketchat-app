@@ -1,7 +1,3 @@
-### Configuration
-
-This app will make the first user, logging in to the app, the administrator. The Cloudron admin property of users is not honored.
-
 ### Overview
 
 A complete team chat solution, from group messages and video calls all the way to helpdesk killer features.
@@ -14,7 +10,7 @@ The first user to login becomes the Rocket.Chat `administrator`. This administra
 users as administators for the application. (Please note that the Cloudron admin status is not carried
 over to the Rocket.Chat automatically).
 
-To disable external registration, go to `Administration` -> `Accounts` -> `Registration Form`. Choose `Disabled`.
+To enable external registration, go to `Administration` -> `Accounts` -> `Registration Form`. Choose `Public`.
 
 <!--
 Rocket.Chat requires unique email and user ids. In the case of conflict between a LDAP account and an
