@@ -48,6 +48,7 @@ ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"Accounts_AllowPasswo
 if [[ "${first_run}" == "true" ]]; then
     echo "Disabling registration on first run"
     ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"Accounts_RegistrationForm\" }, { \$set: { value: \"Disabled\" }}, { upsert: true })"
+    ${mongo_cli} --eval "db.rocketchat_settings.update({ _id: \"Accounts_RegistrationForm_LinkReplacementText\" }, { \$set: { value: \"\" }}, { upsert: true })"
 fi
 
 # Email
